@@ -10,12 +10,9 @@ import {
   useFonts as useLatoFonts,
   Lato_400Regular,
 } from "@expo-google-fonts/lato";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { SafeArea } from "./src/components/utils/SafeAreaComponent";
-import { Text } from "react-native";
-import { Ionicons } from "@expo/vector-icons";
 import { RestaurantsContextProvider } from "./src/services/restaurants/restaurantsContext";
 import { LocationContextProvider } from "./src/services/location/locationContext";
+import { FavouritesContextProvider } from "./src/services/favourites/favouritesContext";
 import { Navigation } from "./src/infrastructure/navigation";
 
 export default function App() {
@@ -32,11 +29,13 @@ export default function App() {
   return (
     <>
       <ThemeProvider theme={theme}>
-        <LocationContextProvider>
-          <RestaurantsContextProvider>
-            <Navigation />
-          </RestaurantsContextProvider>
-        </LocationContextProvider>
+        <FavouritesContextProvider>
+          <LocationContextProvider>
+            <RestaurantsContextProvider>
+              <Navigation />
+            </RestaurantsContextProvider>
+          </LocationContextProvider>
+        </FavouritesContextProvider>
       </ThemeProvider>
       <ExpoStatusBar style="auto" />
     </>

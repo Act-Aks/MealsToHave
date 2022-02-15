@@ -4,13 +4,14 @@ import styled from "styled-components/native";
 import { LocationContext } from "../../../services/location/locationContext";
 import { RestaurantsContext } from "../../../services/restaurants/restaurantsContext";
 import { MapSearch } from "../components/MapSearch";
+import { MapCallout } from "../components/MapCallout";
 
 const Map = styled(MapView)`
   height: 100%;
   width: 100%;
 `;
 
-export const MapScreen = () => {
+export const MapScreen = ({ navigation }) => {
   const { location } = useContext(LocationContext);
   const { restaurants } = useContext(RestaurantsContext);
   const [latDelta, setLatDelta] = useState(0);
@@ -44,7 +45,17 @@ export const MapScreen = () => {
                 latitude: restaurant.geometry.location.lat,
                 longitude: restaurant.geometry.location.lng,
               }}
-            />
+            >
+              <MapView.Callout
+                onPress={() =>
+                  navigation.navigate("RestaurantDetail", {
+                    restaurant,
+                  })
+                }
+              >
+                <MapCallout restaurant={restaurant} />
+              </MapView.Callout>
+            </MapView.Marker>
           );
         })}
       </Map>
