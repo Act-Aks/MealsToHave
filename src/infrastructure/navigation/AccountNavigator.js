@@ -8,7 +8,7 @@ import { RegistrationScreen } from "../../features/accoumt/screens/RegistrationS
 const Stack = createStackNavigator();
 
 export const AccountNavigator = () => (
-  <Stack.Navigator headerMode="none">
+  <Stack.Navigator screenOptions={{ headerShown: false }}>
     <Stack.Screen name="Main" component={AccountScreen} />
     <Stack.Screen name="Login" component={LoginScreen} />
     <Stack.Screen name="Register" component={RegistrationScreen} />
