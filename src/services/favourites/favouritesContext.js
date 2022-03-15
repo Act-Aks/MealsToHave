@@ -5,8 +5,8 @@ import { AuthenticationContext } from "../authentication/authenticationContext";
 export const FavouritesContext = createContext();
 
 export const FavouritesContextProvider = ({ children }) => {
-  const [favourites, setFavourites] = useState([]);
   const { user } = useContext(AuthenticationContext);
+  const [favourites, setFavourites] = useState([]);
 
   const addFavourite = (restaurant) => {
     setFavourites([...favourites, restaurant]);
@@ -35,19 +35,22 @@ export const FavouritesContextProvider = ({ children }) => {
       if (value !== null) {
         setFavourites(JSON.parse(value));
       }
+      // AsyncStorage.getItem(`@favourites-${uid}`).then((value) => {
+      //   setFavourites(JSON.parse(value));
+      // });
     } catch (error) {
       console.log("\x1b[33m Error loading favourites >>>", error);
     }
   };
 
   useEffect(() => {
-    if (user) {
+    if (user && user.uid) {
       loadFavourites(user.uid);
     }
   }, [user]);
 
   useEffect(() => {
-    if (user) {
+    if (user && user.uid && favourites.length) {
       saveFavourites(favourites, user.uid);
     }
   }, [favourites, user]);
