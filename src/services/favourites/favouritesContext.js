@@ -35,9 +35,6 @@ export const FavouritesContextProvider = ({ children }) => {
       if (value !== null) {
         setFavourites(JSON.parse(value));
       }
-      // AsyncStorage.getItem(`@favourites-${uid}`).then((value) => {
-      //   setFavourites(JSON.parse(value));
-      // });
     } catch (error) {
       console.log("\x1b[33m Error loading favourites >>>", error);
     }
